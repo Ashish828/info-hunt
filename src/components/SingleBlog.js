@@ -7,6 +7,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import AppLoading from "expo-app-loading";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import notFound from "../../assets/not-found.png";
 
 const SingleBlog = ({ data, navigation }) => {
   let [fontsLoaded, error] = useFonts({
@@ -27,7 +28,11 @@ const SingleBlog = ({ data, navigation }) => {
     >
       <View style={styles.SingleBlogContainer}>
         <View>
-          <Image source={{ uri: data.image }} style={styles.blogImage} />
+          {data.image === null ? (
+            <Image source={notFound} style={styles.blogImage} />
+          ) : (
+            <Image source={{ uri: data.image }} style={styles.blogImage} />
+          )}
         </View>
         <View style={styles.constainer2}>
           <Text style={styles.category}>{data.category}</Text>

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import { StatusBar } from "expo-status-bar";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import BlogContext from "../context/blogContext";
 import {
   useFonts,
@@ -23,26 +22,31 @@ const SingleBlogScreen = ({ route }) => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
   return (
-    <View>
-      {singleBlog.length > 0 &&
-        singleBlog.map((blog) => (
-          <View key={Math.random()}>
-            <Image source={{ uri: blog.image }} style={styles.blogImage} />
-            <Text style={styles.title}>{blog.title}</Text>
-            <View style={styles.authorAndDate}>
-              <Text style={styles.author}>
-                <Text style={{ fontWeight: "500" }}>Wriiten by: </Text>
-                {blog.author === null ? "unknown" : blog.author}
-              </Text>
-              <Text style={styles.date}>
-                {new Date(blog.published_at).toDateString()}
-              </Text>
+    <View style={styles.container}>
+      <ScrollView style={styles.outer}>
+        {singleBlog.length > 0 &&
+          singleBlog.map((blog) => (
+            <View key={Math.random()}>
+              {blog.image === null ? null : (
+                <Image source={{ uri: blog.image }} style={styles.blogImage} />
+              )}
+
+              <Text style={styles.title}>{blog.title}</Text>
+              <View style={styles.authorAndDate}>
+                <Text style={styles.author}>
+                  <Text style={{ fontWeight: "500" }}>Wriiten by: </Text>
+                  {blog.author === null ? "unknown" : blog.author}
+                </Text>
+                <Text style={styles.date}>
+                  {new Date(blog.published_at).toDateString()}
+                </Text>
+              </View>
+              <Text style={styles.description}>{blog.description}</Text>
             </View>
-            <Text style={styles.description}>{blog.description}</Text>
-          </View>
-        ))}
-      <StatusBar style="light" />
+          ))}
+      </ScrollView>
     </View>
   );
 };
@@ -50,7 +54,7 @@ const SingleBlogScreen = ({ route }) => {
 const styles = StyleSheet.create({
   blogImage: {
     width: "100%",
-    height: "40%",
+    height: 400,
     marginBottom: 5,
   },
   title: {
@@ -90,6 +94,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 20,
     lineHeight: 31,
+    paddingBottom: 10,
+  },
+  container: {
+    flexGrow: 1,
+    height: 700,
+  },
+  outer: {
+    flex: 1,
+    borderWidth: 4,
+  },
+  inner: {
+    flexGrow: 1,
   },
 });
 
