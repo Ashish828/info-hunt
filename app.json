@@ -2,6 +2,8 @@
   "expo": {
     "name": "Info Hunt",
     "slug": "info-hunt",
+    "privacy": "public",
+    "description": "A app to view blogs related to technical industry",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/white-logo.png",
@@ -13,7 +15,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -21,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ashish828.infohunt"
     },
     "web": {
       "favicon": "./assets/adaptive-icon.png"

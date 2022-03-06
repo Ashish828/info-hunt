@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { Axios } from "../api/api";
+import axios from "axios";
 import { API_KEY } from "@env";
 
 const BlogContext = React.createContext();
 
 export const BlogProvider = ({ children }) => {
-  const [blogs, setBlogs] = useState([]);
-
+  const [state, setState] = useState({
+    category: "general",
+    blogs: [],
+  });
+  console.log(state.blogs);
   useEffect(() => {
     const fetchData = async () => {
-      const response = await Axios.get(
-        `/news?access_key=${API_KEY}&categories=technology&languages=en`
+      const response = await axios.get(
+        `https://api.currentsapi.services/v1/latest-news?apiKey=${API_KEY}&category=${state.category}`
       );
-      setBlogs(response.data.data);
+      setState((prevState) => ({ ...prevState, blogs: response.data.news }));
     };
     fetchData();
-  }, []);
+  }, [state.category]);
 
-  return <BlogContext.Provider value={blogs}>{children}</BlogContext.Provider>;
+  return (
+    <BlogContext.Provider value={[state, setState]}>
+      {children}
+    </BlogContext.Provider>
+  );
 };
 
 export default BlogContext;

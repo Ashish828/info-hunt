@@ -5,21 +5,34 @@ import BlogContext from "../context/blogContext";
 import { useFonts, Poppins_500Medium } from "@expo-google-fonts/poppins";
 import AppLoading from "expo-app-loading";
 import SingleBlog from "../components/SingleBlog";
+import { categories } from "../categories";
+import Select from "../components/Select";
 
 const HomeScreen = ({ navigation }) => {
   let [fontsLoaded, error] = useFonts({
     Poppins_500Medium,
   });
-  const data = useContext(BlogContext);
+  const [data, setData] = useContext(BlogContext);
 
   if (!fontsLoaded) {
     return <AppLoading />;
   }
   return (
     <View style={styles.blogsContainer}>
-      <Text style={styles.blogsHead}>Your daily update</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "5%",
+        }}
+      >
+        <Text style={styles.blogsHead}>Your daily update</Text>
+        <Select categories={categories} setData={setData} data={data} />
+      </View>
+
       <FlatList
-        data={data}
+        data={data.blogs}
         keyExtractor={(data) => data.url}
         renderItem={({ item }) => {
           return <SingleBlog data={item} navigation={navigation} />;
@@ -39,7 +52,6 @@ const styles = StyleSheet.create({
   blogsHead: {
     fontFamily: "Poppins_500Medium",
     fontSize: 20,
-    marginBottom: 15,
   },
 });
 

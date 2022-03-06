@@ -1,5 +1,12 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Linking,
+} from "react-native";
 import BlogContext from "../context/blogContext";
 import {
   useFonts,
@@ -8,6 +15,7 @@ import {
   Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
 import AppLoading from "expo-app-loading";
+import NotFound from "../../assets/not-found.png";
 
 const SingleBlogScreen = ({ route }) => {
   let [fontsLoaded, error] = useFonts({
@@ -16,8 +24,10 @@ const SingleBlogScreen = ({ route }) => {
     Poppins_600SemiBold,
   });
 
-  const data = useContext(BlogContext);
-  const singleBlog = data.filter((blog) => blog.title === route.params.title);
+  const [data, setData] = useContext(BlogContext);
+  const singleBlog = data.blogs.filter(
+    (blog) => blog.title === route.params.title
+  );
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -29,21 +39,27 @@ const SingleBlogScreen = ({ route }) => {
         {singleBlog.length > 0 &&
           singleBlog.map((blog) => (
             <View key={Math.random()}>
-              {blog.image === null ? null : (
+              {blog.image === "None" ? (
+                <Image source={NotFound} style={styles.blogImage} />
+              ) : (
                 <Image source={{ uri: blog.image }} style={styles.blogImage} />
               )}
 
-              <Text style={styles.title}>{blog.title}</Text>
+              <Text style={styles.title}>{blog?.title}</Text>
               <View style={styles.authorAndDate}>
                 <Text style={styles.author}>
                   <Text style={{ fontWeight: "500" }}>Wriiten by: </Text>
-                  {blog.author === null ? "unknown" : blog.author}
+                  {blog?.author === null ? "unknown" : blog?.author}
                 </Text>
-                <Text style={styles.date}>
-                  {new Date(blog.published_at).toDateString()}
-                </Text>
+                <Text style={styles.date}>{blog.published?.split(" ")[0]}</Text>
               </View>
-              <Text style={styles.description}>{blog.description}</Text>
+              <Text style={styles.description}>{blog?.description}</Text>
+              <Text
+                style={{ color: "blue", marginBottom: 30, textAlign: "center" }}
+                onPress={() => Linking.openURL(blog.url)}
+              >
+                View more
+              </Text>
             </View>
           ))}
       </ScrollView>
@@ -60,7 +76,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Poppins_600SemiBold",
     textTransform: "capitalize",
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: "600",
     paddingHorizontal: 10,
   },

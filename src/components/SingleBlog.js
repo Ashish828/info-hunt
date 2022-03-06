@@ -28,7 +28,7 @@ const SingleBlog = ({ data, navigation }) => {
     >
       <View style={styles.SingleBlogContainer}>
         <View>
-          {data.image === null ? (
+          {data.image === "None" ? (
             <Image source={notFound} style={styles.blogImage} />
           ) : (
             <Image source={{ uri: data.image }} style={styles.blogImage} />
@@ -41,9 +41,7 @@ const SingleBlog = ({ data, navigation }) => {
             <Text style={{ fontWeight: "700" }}>Author: </Text>
             {data.author === null ? "unknown" : data.author}
           </Text>
-          <Text style={styles.date}>
-            {new Date(data.published_at).toDateString()}
-          </Text>
+          <Text style={styles.date}>{data.published?.split(" ")[0]}</Text>
         </View>
       </View>
     </TouchableOpacity>
