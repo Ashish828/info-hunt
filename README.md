@@ -5,6 +5,11 @@ In this fast and information-oriented world we need to stay updated with every i
 This Live Blog app is an android mobile application where users have access to the latest news from 100+ articles from all over the world. 
 The main focus of this application is to connect news articles from all around the world and deliver it to the user as fast as possible in the best visual way possible.
 
+
+https://user-images.githubusercontent.com/63797339/156973816-66be10fa-c745-43a7-9661-ced4eff435ae.mp4
+
+
+
 ## **API:** 
 CurrentsAPI has been used for collecting different categories related live news sources at one spot.
 ## API URL: 
