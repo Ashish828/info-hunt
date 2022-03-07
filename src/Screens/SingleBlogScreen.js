@@ -32,13 +32,12 @@ const SingleBlogScreen = ({ route }) => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
   return (
     <View style={styles.container}>
       <ScrollView style={styles.outer}>
         {singleBlog.length > 0 &&
           singleBlog.map((blog) => (
-            <View key={Math.random()}>
+            <View key={blog.id}>
               {blog.image === "None" ? (
                 <Image source={NotFound} style={styles.blogImage} />
               ) : (

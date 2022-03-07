@@ -6,7 +6,7 @@
     "description": "A app to view blogs related to technical industry",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/white-logo.png",
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/SplashScreen.png",
       "resizeMode": "contain",
@@ -15,21 +15,19 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.ashish828.infohunt"
     },
     "web": {
-      "favicon": "./assets/adaptive-icon.png"
+      "favicon": "./assets/icon.png"
     }
   }
 }

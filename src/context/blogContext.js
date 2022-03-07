@@ -9,7 +9,6 @@ export const BlogProvider = ({ children }) => {
     category: "general",
     blogs: [],
   });
-  console.log(state.blogs);
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
